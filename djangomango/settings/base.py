@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'djangomango.apps.proposal',
 
     'south',
+    'voting',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
