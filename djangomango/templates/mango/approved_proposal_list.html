@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {% trans "Home" %}{% endblock %}
+
+{% block content %}
+    <h2>{% trans "Approved Proposals" %}</h2>
+    <ul>
+        {% for proposal in proposal_list %}
+            <li>
+                <h3>{{ proposal.title }}</h3>
+                <p>{{ proposal.description }}</p>
+                <div class="actions">
+                    <a href="#">{% trans "View Abstract" %}</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

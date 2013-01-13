@@ -29,8 +29,8 @@ INSTALLED_APPS = (
     'djangomango.apps.proposal',
 
     'south',
-    'voting',
     'django_nose',
+    'endless_pagination',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -100,6 +100,7 @@ TEMPLATE_DIRS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
 )
 
 #==============================================================================
