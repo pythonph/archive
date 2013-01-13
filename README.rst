@@ -1,6 +1,6 @@
 .. 
 
-djangomango
+django-mango
 ======================
 
 .. image:: https://secure.travis-ci.org/pypug/django-mango.png
