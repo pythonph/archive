@@ -30,6 +30,7 @@ INSTALLED_APPS = (
 
     'south',
     'voting',
+    'django_nose',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,3 +153,5 @@ SCSS_OPTIONS = {
 #==============================================================================
 # Third party app settings
 #==============================================================================
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
