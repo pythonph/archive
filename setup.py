@@ -3,6 +3,7 @@
 import djangomango
 from setuptools import setup, find_packages
 
+
 setup(
     name=djangomango.__title__,
     version=djangomango.__version__,
@@ -12,10 +13,9 @@ setup(
     author=djangomango.__author__,
     author_email='',
     url='https://github.com/pypug/django-mango',
-    packages=find_packages(),
+    packages=['djangomango'],
     package_data={
-        '': ['LICENSE'],
-        'djangomango': ['static/*.*', 'templates/*.*']
+        '': ['LICENSE']
     },
     include_package_data=True,
     license=open("LICENSE").read(),
