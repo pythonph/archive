@@ -20,17 +20,11 @@ pip-log.txt
 .coverage
 .tox
 
-<<<<<<< HEAD
-#Translations
-=======
 # Translations
->>>>>>> ca2dc88... Initial commit
 *.mo
 
 #Mr Developer
 .mr.developer.cfg
-<<<<<<< HEAD
-=======
 
 # OSX
 .DS_Store
@@ -47,4 +41,3 @@ localsettings.py
 djangomango/settings/local.py
 djangomango/settings/local/*
 docs/_build
->>>>>>> ca2dc88... Initial commit

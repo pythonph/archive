@@ -11,6 +11,7 @@ pyscss==1.1.4
 django-autoslug==1.6.1
 django-voting==0.2
 django-nose==1.1
+tox==1.4.2
 
 # For development only. Although these will be installed, its not enabled
 # by default so you'll have to enable them manually in your local settings if
