@@ -114,7 +114,7 @@ AUTHENTICATION_BACKENDS += (
 )
 
 #==============================================================================
-# Miscellaneous project settings
+# Logging
 #==============================================================================
 
 LOGGING['formatters'] = {
@@ -132,6 +132,19 @@ LOGGING['handlers']['console'] = {
 LOGGING['loggers'][''] = {
     'handlers': ['console'],
     'level': 'INFO'
+}
+
+#==============================================================================
+# Miscellaneous project settings
+#==============================================================================
+
+SCSS_LOAD_PATHS = [
+    os.path.join(PROJECT_DIR, 'static', 'css/sass/bootstrap')
+]
+
+SCSS_OPTIONS = {
+    'compress': True,
+    'debug_info': True
 }
 
 #==============================================================================

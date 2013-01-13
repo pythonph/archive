@@ -17,13 +17,9 @@ def _init_scss():
     """ Initialize pyScss. """
     pyscss.STATIC_ROOT = STATIC_ROOT
     pyscss.STATIC_URL = settings.STATIC_URL
+    pyscss.LOAD_PATHS = settings.SCSS_LOAD_PATHS
 
-    pyscss.LOAD_PATHS = [
-        os.path.join(STATIC_ROOT, 'css/sass/bootstrap')
-    ]
-
-    # TODO: move options to settings
-    return pyscss.Scss(scss_opts={'compress': True, 'debug_info': True})
+    return pyscss.Scss(scss_opts=settings.SCSS_OPTIONS)
 
 
 @register.simple_tag
