@@ -1,0 +1,11 @@
+<div class="pagination pagination-large">
+    <ul>
+        {% for page in pages %}
+            {% if page %}
+            <li {% if page.is_current %}class="active"{% endif %}>
+                {{ page }}
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

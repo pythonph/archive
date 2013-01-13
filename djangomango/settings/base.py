@@ -143,7 +143,7 @@ LOGGING['loggers']['generic'] = {
 #==============================================================================
 
 SCSS_LOAD_PATHS = [
-    os.path.join(PROJECT_DIR, 'static', 'css/sass/bootstrap')
+    os.path.join(PROJECT_DIR, 'static', 'css/sass')
 ]
 
 SCSS_OPTIONS = {
@@ -156,3 +156,7 @@ SCSS_OPTIONS = {
 #==============================================================================
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+ENDLESS_PAGINATION_PER_PAGE = 5
+ENDLESS_PAGINATION_PREVIOUS_LABEL = '&laquo;'
+ENDLESS_PAGINATION_NEXT_LABEL = '&raquo;'

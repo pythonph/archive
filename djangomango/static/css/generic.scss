@@ -1,0 +1,25 @@
+@import "bootstrap/variables";
+
+.page-header {
+  .btn {
+    float: right;
+    margin: 5px 0;
+  }
+}
+
+#home {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li h3 {
+      margin-bottom: 5px;
+    }
+  }
+
+  .speaker {
+    color: $grayLight;
+    margin-bottom: 5px;
+  }
+}
