@@ -1,0 +1,19 @@
+{% load scss from djscss %}
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block head_title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-2.2.2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% scss 'css/generic.scss' %}">
+</head>
+<body>
+
+<div id="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

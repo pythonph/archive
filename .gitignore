@@ -1,0 +1,50 @@
+*.py[co]
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+<<<<<<< HEAD
+#Translations
+=======
+# Translations
+>>>>>>> ca2dc88... Initial commit
+*.mo
+
+#Mr Developer
+.mr.developer.cfg
+<<<<<<< HEAD
+=======
+
+# OSX
+.DS_Store
+
+# Development
+*.sqlite
+localsettings.py
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Project specific
+djangomango/settings/local.py
+djangomango/settings/local/*
+docs/_build
+>>>>>>> ca2dc88... Initial commit
