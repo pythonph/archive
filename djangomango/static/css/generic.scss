@@ -1,12 +1,14 @@
 @import "bootstrap/variables";
 
 .page-header {
-  .btn {
-    float: right;
-    margin: 5px 0;
-  }
-  .btn:first-child {
-    margin-left: 5px;
+  span {
+    .btn {
+      float: right;
+      margin: 5px 0;
+    }
+    .btn:first-child {
+      margin-left: 5px;
+    }
   }
 }
 
