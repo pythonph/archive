@@ -16,8 +16,22 @@
     padding: 0;
     list-style: none;
 
-    li h3 {
-      margin-bottom: 5px;
+    li {
+      h3 {
+        margin-bottom: 5px;
+      }
+
+      .speaker {
+        .novice {
+          background-color: $orange;
+        }
+        .intermediate {
+          background-color: $green;
+        }
+        .experienced {
+          background-color: $grayDark;
+        }
+      }
     }
   }
 
