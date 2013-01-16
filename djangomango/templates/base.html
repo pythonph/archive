@@ -16,13 +16,23 @@
       <h1>
         {% trans "PyCon Philippines 2013" %} 
         {% if request.user.is_authenticated %}
+          <a href="{% url logout %}" class="btn">{% trans "Logout" %}</a>
           <a href="#" class="btn btn-success">{% trans "Submit Proposal" %}</a>
         {% else %}
           <a href="#" class="btn btn-success">{% trans "Signup" %}</a>
-          <a href="#" class="btn btn-primary">{% trans "Login" %}</a>
+          <a href="#" class="btn btn-info">{% trans "Login" %}</a>
         {% endif %}
       </h1>
     </div>
+
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
   </div>
