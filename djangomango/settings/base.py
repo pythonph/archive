@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'django_nose',
     'endless_pagination',
     'registration',
+    'longerusername',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',

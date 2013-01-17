@@ -10,6 +10,7 @@ from djangomango.apps.mango.forms import SignupForm, LoginForm
 from registration.views import register
 
 
+admin.site.login_form = LoginForm
 admin.autodiscover()
 
 urlpatterns = patterns('',
