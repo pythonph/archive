@@ -1,30 +1,53 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate
+
+from registration.forms import RegistrationFormUniqueEmail
 
 
-class SignupForm(forms.Form):
-    email = forms.EmailField()
+class SignupForm(RegistrationFormUniqueEmail):
+    """ Custom signup form that adds first_name and last_name fields. """
+
     first_name = forms.CharField()
     last_name = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super(SignupForm, self).__init__(*args, **kwargs)
+
+        # delete username field and reorder first_name and last_name
+        del self.fields['username']
+        self.fields.insert(1, 'first_name', self.fields['first_name'])
+        self.fields.insert(2, 'last_name', self.fields['last_name'])
 
     def clean_email(self):
-        """ Make sure email is unique. """
-        email = self.cleaned_data.get('email', None)
+        """ Error message is too long so we intercept and re-raise. """
         try:
-            User.objects.get(email=email)
-            raise forms.ValidationError(_("Email already taken."))
-        except User.DoesNotExist:
-            return email
+            return super(SignupForm, self).clean_email()
+        except forms.ValidationError:
+            raise forms.ValidationError(
+                _("This email address is already in use."))
+
+
+class LoginForm(AuthenticationForm):
+    """ Custom login form that override username as email. """
+
+    username = forms.EmailField(label=_("Email"))
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
 
     def clean(self):
-        """ Make sure password matches. """
-        password = self.cleaned_data.get('password', None)
-        confirm_password = self.cleaned_data.get('confirm_password', None)
-        if password != confirm_password:
-            self._errors['password'] = [_("Password doesn't match.")]
-            self._errors['confirm_password'] = ' '  # highlight field
-            raise forms.ValidationError('')
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        if username and password:
+            self.user_cache = authenticate(username=username,
+                                           password=password)
+
+            if self.user_cache is None or not self.user_cache.is_active:
+                self._errors['password'] = self._errors['username'] = ' '
+                raise forms.ValidationError(
+                    _("Its either your email or password is incorrect."))
+
+        self.check_for_test_cookie()
         return self.cleaned_data

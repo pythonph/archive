@@ -8,18 +8,17 @@
 <div id="signup">
   <form class="form-horizontal" method="post">
     {% csrf_token %}
-
     <fieldset>
       <legend>{% trans "User Registration" %}</legend>
+
+        {% for field in form %}
+          {% include "includes/form_field.html" %}
+        {% endfor %}
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{% trans "Sign me up!" %}</button>
+        </div>
     </fieldset>
-
-    {% for field in form %}
-      {% include "includes/form_field.html" %}
-    {% endfor %}
-
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">{% trans "Sign me up!" %}</button>
-    </div>
   </form>
 </div>
 {% endblock content %}

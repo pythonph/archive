@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'south',
     'django_nose',
     'endless_pagination',
+    'registration',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -115,6 +116,7 @@ MIDDLEWARE_CLASSES += (
 #==============================================================================
 
 AUTHENTICATION_BACKENDS += (
+    'djangomango.apps.mango.backends.EmailAuthBackend',
 )
 
 #==============================================================================
