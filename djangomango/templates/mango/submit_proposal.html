@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {% trans "Submit Proposal" %}{% endblock %}
+
+{% block content %}
+<div id="submit-proposal">
+  <form class="form-horizontal" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Submit Proposal" %}</legend>
+
+        {% for field in form %}
+          {% include "includes/form_field.html" %}
+        {% endfor %}
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock content %}

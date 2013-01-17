@@ -1,6 +1,5 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 
@@ -51,3 +50,8 @@ class LoginForm(AuthenticationForm):
 
         self.check_for_test_cookie()
         return self.cleaned_data
+
+
+class SubmitProposalForm(forms.Form):
+    title = forms.CharField(required=True)
+    overview = forms.CharField(required=True, widget=forms.Textarea)
