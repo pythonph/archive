@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate
 
 from registration.forms import RegistrationFormUniqueEmail
 
+from ..proposal.models import Proposal
+
 
 class SignupForm(RegistrationFormUniqueEmail):
     """ Custom signup form that adds first_name and last_name fields. """
@@ -52,6 +54,7 @@ class LoginForm(AuthenticationForm):
         return self.cleaned_data
 
 
-class SubmitProposalForm(forms.Form):
-    title = forms.CharField(required=True)
-    overview = forms.CharField(required=True, widget=forms.Textarea)
+class SubmitProposalForm(forms.ModelForm):
+    class Meta:
+        model = Proposal
+        exclude = ('speaker', 'status',)
