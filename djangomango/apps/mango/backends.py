@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
-from registration import signals
 
+from registration import signals
 from registration.backends.simple import SimpleBackend
 
 
