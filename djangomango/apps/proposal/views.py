@@ -1,9 +1,12 @@
 from django.contrib import messages
 from django.views.generic import CreateView, TemplateView
 from django.utils.translation import ugettext as _
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 
 from .forms import SubmitProposalForm
 from .models import PENDING
+from ..mango.utils import moderator_required
 
 
 class SubmitProposalView(CreateView):
@@ -21,3 +24,7 @@ class SubmitProposalView(CreateView):
 
 class ScheduleProposalView(TemplateView):
     template_name = 'proposal/schedule.html'
+
+    @method_decorator(user_passes_test(moderator_required))
+    def dispatch(self, *args, **kwargs):
+        return super(ScheduleProposalView, self).dispatch(*args, **kwargs)
