@@ -4,13 +4,17 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
-from ..mango.models import AuditableModel
+from ..mango.models import BaseModel
 
+
+PENDING = 'pending'
+APPROVED = 'approved'
+DECLINED = 'declined'
 
 PROPOSAL_STATUS = (
-    ('pending', _(u'Pending')),
-    ('approved', _(u'Approved')),
-    ('declined', _(u'Declined'))
+    (PENDING, _(u'Pending')),
+    (APPROVED, _(u'Approved')),
+    (DECLINED, _(u'Declined'))
 )
 
 
@@ -41,7 +45,7 @@ class AudienceLevel(models.Model):
         return self.name
 
 
-class Proposal(AuditableModel):
+class Proposal(BaseModel):
     speaker = models.ForeignKey(User, related_name='proposals')
     title = models.CharField(max_length=200)
     slug = AutoSlugField(populate_from='title')
