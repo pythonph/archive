@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'endless_pagination',
     'registration',
     'longerusername',
+    'templatetag_handlebars',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,7 +139,7 @@ LOGGING['handlers']['console'] = {
 
 LOGGING['loggers']['generic'] = {
     'handlers': ['console'],
-    'level': 'INFO'
+    'level': 'DEBUG'
 }
 
 #==============================================================================
