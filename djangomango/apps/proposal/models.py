@@ -59,7 +59,7 @@ class Proposal(BaseModel):
                               default='pending')
 
     class Meta:
-        ordering = ['-created']
+        ordering = ('-created',)
 
     def __unicode__(self):
         return self.title

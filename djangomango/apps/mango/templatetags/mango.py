@@ -1,5 +1,6 @@
 import os
 import scss as pyscss
+import coffeescript
 import logging
 
 from django.conf import settings
@@ -24,7 +25,7 @@ def _init_scss():
 
 @register.simple_tag
 def scss(path):
-    """ Template tag to compile scss file if needed and return its url. """
+    """ Template tag to compile scss files if needed and return its url. """
 
     # FIXME: init once
     _scss = _init_scss()
@@ -46,6 +47,33 @@ def scss(path):
             logger.info('Compiled scss file: %s' % scss_file)
         except Exception as e:
             logger.debug("Can't compile scss file: %s" % scss_file)
+            logger.debug(e)
+
+    return static(filename)
+
+
+@register.simple_tag
+def coffee(path):
+    """
+    Template tag to compile coffeescript files if needed and return its url.
+    """
+    filename = 'js/%s.js' % os.path.splitext(os.path.basename(path))[0]
+    coffee_file = os.path.join(STATIC_ROOT, path)
+    js_file = os.path.join(STATIC_ROOT, filename)
+
+    if not os.path.isfile(js_file):
+        js_mtime = -1
+    else:
+        js_mtime = os.path.getmtime(js_file)
+
+    if os.path.getmtime(coffee_file) >= js_mtime:
+        try:
+            compiled = coffeescript.compile(open(coffee_file).read())
+            with open(js_file, 'w') as f:
+                f.write(compiled)
+            logger.info('Compiled coffee script file: %s' % coffee_file)
+        except Exception as e:
+            logger.debug("Can't compile coffee script file: %s" % coffee)
             logger.debug(e)
 
     return static(filename)

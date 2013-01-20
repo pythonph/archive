@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load coffee from mango %}
+{% load static from staticfiles %}
 
 {% block head_title %}{{ block.super }} | {% trans "Schedule Proposal" %}{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% coffee 'src/schedule.coffee' %}"></script>
+{% endblock javascript %}
 
 {% block content %}
 <div id="schedule-proposal">

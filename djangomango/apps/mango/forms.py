@@ -26,7 +26,7 @@ class SignupForm(RegistrationFormUniqueEmail):
             return super(SignupForm, self).clean_email()
         except forms.ValidationError:
             raise forms.ValidationError(
-                _("This email address is already in use."))
+                _(u"This email address is already in use."))
 
 
 class LoginForm(AuthenticationForm):
@@ -46,7 +46,7 @@ class LoginForm(AuthenticationForm):
             if self.user_cache is None or not self.user_cache.is_active:
                 self._errors['password'] = self._errors['username'] = ' '
                 raise forms.ValidationError(
-                    _("Its either your email or password is incorrect."))
+                    _(u"Its either your email or password is incorrect."))
 
         self.check_for_test_cookie()
         return self.cleaned_data

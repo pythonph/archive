@@ -145,6 +145,7 @@ LOGGING['loggers']['generic'] = {
 # Miscellaneous project settings
 #==============================================================================
 
+# SCSS
 SCSS_LOAD_PATHS = [
     os.path.join(PROJECT_DIR, 'static', 'css/sass')
 ]

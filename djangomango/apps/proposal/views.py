@@ -15,7 +15,7 @@ class SubmitProposalView(CreateView):
         form.instance.speaker = self.request.user
         form.instance.status = PENDING
         messages.info(self.request,
-            _("Thank you, your proposal is now being reviewed."))
+            _(u"Thank you, your proposal is now being reviewed."))
         return super(SubmitProposalView, self).form_valid(form)
 
 
