@@ -1,13 +1,17 @@
 @import "bootstrap/variables";
+@import "bootstrap/mixins";
 
 .page-header {
   span {
     .btn {
       float: right;
-      margin: 5px 0;
+      margin: 5px 5px 5px 0;
     }
     .btn:first-child {
-      margin-left: 5px;
+      margin-right: 0;
+    }
+    .active-page {
+      @include buttonBackground($btnWarningBackground, $btnWarningBackgroundHighlight);
     }
   }
 }

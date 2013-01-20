@@ -18,6 +18,7 @@
         <span>
           {% if request.user.is_authenticated %}
             <a href="{% url logout %}" class="btn">{% trans "Logout" %}</a>
+            <a href="{% url schedule_proposal %}" class="btn">{% trans "Schedule" %}</a>
             <a href="{% url submit_proposal %}" class="btn btn-success">{% trans "Submit Proposal" %}</a>
           {% else %}
             <a href="{% url signup %}" class="btn btn-success">{% trans "Signup" %}</a>
@@ -43,6 +44,16 @@
 
   <script type="text/javascript" src="{% static 'js/jquery-1.8.3.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/jquery-ui-1.9.2.min.js' %}"></script>
+  <script type="text/javascript">
+  $(function() {
+    // check which page is active
+    $('.page-header h1 span a').each(function() {
+        var href = $(this).attr('href'),
+            currentUri = "{{ request.path }}";
+        if (currentUri == href) $(this).addClass('active-page');
+    });
+  });
+  </script>
 
   {% block javascript %}
   {% endblock javascript %}
