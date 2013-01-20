@@ -12,7 +12,7 @@
       {% paginate proposal_list %}
       {% for proposal in proposal_list %}
       <li>
-        <h3><a href="#">{{ proposal.title }}</a></h3>
+        <h3><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></h3>
         <div class="speaker">
           {{ proposal.speaker.get_full_name }} / 
           {% with proposal.audience.name as audience_name %}

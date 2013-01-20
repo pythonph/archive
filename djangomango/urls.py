@@ -25,12 +25,17 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
 
     # 3rd party apps
-    url(r'^signup/$', register,
-        {'backend': 'djangomango.apps.mango.backends.RegistrationBackend',
-         'template_name': 'registration/signup.html',
-         'success_url': '/',
-         'form_class': SignupForm},
-        name='signup'),
+    url(
+        r'^signup/$',
+        register,
+        {
+            'backend': 'djangomango.apps.mango.backends.RegistrationBackend',
+            'template_name': 'registration/signup.html',
+            'success_url': '/',
+            'form_class': SignupForm
+        },
+        name='signup'
+    ),
 )
 
 if settings.DEBUG and settings.MEDIA_ROOT:

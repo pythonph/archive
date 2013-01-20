@@ -1,12 +1,26 @@
 from django.contrib import messages
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, DetailView
 from django.utils.translation import ugettext as _
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
+from django.http import Http404
 
 from .forms import SubmitProposalForm
-from .models import PENDING
+from .models import PENDING, Proposal
 from ..mango.utils import moderator_required
+
+
+class ProposalDetailsView(DetailView):
+    template_name = 'proposal/details.html'
+    model = Proposal
+    context_object_name = 'proposal'
+
+    def get_object(self, queryset=None):
+        slug = self.kwargs.get(self.slug_url_kwarg, None)
+        try:
+            return Proposal.objects.get(slug=slug)
+        except Proposal.DoesNotExist:
+            raise Http404 
 
 
 class SubmitProposalView(CreateView):

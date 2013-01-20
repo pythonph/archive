@@ -63,3 +63,7 @@ class Proposal(BaseModel):
 
     def __unicode__(self):
         return self.title
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('proposal_details', [self.slug])
