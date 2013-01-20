@@ -39,7 +39,7 @@ def scss(path):
     else:
         css_mtime = os.path.getmtime(css_file)
 
-    if os.path.getmtime(scss_file) >= css_mtime:
+    if os.path.getmtime(scss_file) >= css_mtime and settings.SCSS_REBUILD:
         try:
             compiled = _scss.compile(open(scss_file).read())
             with open(css_file, 'w') as f:
@@ -66,7 +66,7 @@ def coffee(path):
     else:
         js_mtime = os.path.getmtime(js_file)
 
-    if os.path.getmtime(coffee_file) >= js_mtime:
+    if os.path.getmtime(coffee_file) >= js_mtime and settings.COFFEE_REBUILD:
         try:
             compiled = coffeescript.compile(open(coffee_file).read())
             with open(js_file, 'w') as f:

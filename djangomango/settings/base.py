@@ -156,6 +156,11 @@ SCSS_OPTIONS = {
     'debug_info': True
 }
 
+SCSS_REBUILD = False
+
+# coffeescript
+COFFEE_REBUILD = False
+
 #==============================================================================
 # Third party app settings
 #==============================================================================
