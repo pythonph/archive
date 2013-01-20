@@ -6,4 +6,5 @@ from .models import Proposal
 class SubmitProposalForm(forms.ModelForm):
     class Meta:
         model = Proposal
-        exclude = ('speaker', 'status',)
+        fields = ('title', 'type', 'audience', 'category', 'duration',
+                  'description', 'abstract')
