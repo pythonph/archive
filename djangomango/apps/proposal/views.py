@@ -5,6 +5,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.http import Http404
 
+from braces.views import LoginRequiredMixin
+
 from .forms import SubmitProposalForm
 from .models import APPROVED, PENDING, Proposal
 from ..mango.utils import moderator_required
@@ -23,7 +25,7 @@ class ProposalDetailsView(DetailView):
             raise Http404
 
 
-class SubmitProposalView(CreateView):
+class SubmitProposalView(LoginRequiredMixin, CreateView):
     form_class = SubmitProposalForm
     template_name = 'proposal/submit.html'
     success_url = '/'

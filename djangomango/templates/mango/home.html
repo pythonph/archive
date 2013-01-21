@@ -26,7 +26,7 @@
             <li>
               <h3><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></h3>
               <div class="speaker">
-                {{ proposal.speaker.get_full_name }} /
+                <a href="{{ proposal.speaker.profile.get_absolute_url }}">{{ proposal.speaker.get_full_name }}</a> /
                 {% with proposal.audience.name as audience_name %}
                   <span class="label {{ audience_name|lower }}">
                     {{ audience_name }}

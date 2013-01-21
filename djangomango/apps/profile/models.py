@@ -6,10 +6,8 @@ from imagekit.models import ImageSpecField
 from autoslug import AutoSlugField
 
 from .utils import get_mugshots_path
+from ..proposal.models import APPROVED
 
-
-def slugify():
-    pass
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
@@ -21,10 +19,18 @@ class UserProfile(models.Model):
     mugshot_thumbnail = ImageSpecField(image_field='mugshot',
                                        format='JPEG',
                                        options={'quality': 90})
-    # about = models.TextField()
+    bio = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return self.user.get_full_name()
+
+    def proposals(self):
+        """ Return approved proposals. """
+        return self.user.proposals.filter(status=APPROVED)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('profile_details', [self.slug])
 
 
 def create_user_profile(sender, instance, created, **kwargs):

@@ -8,5 +8,25 @@
 <div id="profile">
   <h2>{{ profile.user.get_full_name|title }}</h2>
 
+  {% if profile.bio %}
+    <p>{{ profile.bio }}</p>
+  {% endif %}
+
+  {% if request.user.is_authenticated and request.user.id == profile.user.id %}
+  <div class="actions">
+    <a href="#">{% trans "Edit Profile" %}</a>
+  </div>
+  {% endif %}
+
+  {% with profile.proposals as proposals %}
+    {% if proposals %}
+      <h3>{% trans "Presentations" %}</h3>
+      <ul>
+        {% for proposal in proposals %}
+        <li><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
 </div>
 {% endblock content %}
