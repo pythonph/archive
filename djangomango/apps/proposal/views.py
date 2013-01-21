@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.http import Http404
 
 from .forms import SubmitProposalForm
-from .models import PENDING, Proposal
+from .models import APPROVED, PENDING, Proposal
 from ..mango.utils import moderator_required
 
 
@@ -18,9 +18,9 @@ class ProposalDetailsView(DetailView):
     def get_object(self, queryset=None):
         slug = self.kwargs.get(self.slug_url_kwarg, None)
         try:
-            return Proposal.objects.get(slug=slug)
+            return Proposal.objects.get(slug=slug, status=APPROVED)
         except Proposal.DoesNotExist:
-            raise Http404 
+            raise Http404
 
 
 class SubmitProposalView(CreateView):
