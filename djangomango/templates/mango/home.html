@@ -54,7 +54,7 @@
                   <img src="{{ speaker.profile.mugshot_thumbnail.url }}">
                 {% endif %}
               </div>
-              <a href="{{ speaker.get_absolute_url }}">{{ speaker.get_full_name }}</a>
+              <a href="{{ speaker.profile.get_absolute_url }}">{{ speaker.get_full_name }}</a>
             </li>
             {% endfor %}
           </ul>
