@@ -11,8 +11,8 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
 
         # add approved proposals
-        proposals = context['proposal_list'] = (Proposal.objects
-                                                .filter(status=APPROVED))
+        proposals = Proposal.objects.filter(status=APPROVED)
+        context['proposal_list'] = proposals
 
         # add speakers list
         speaker_ids = proposals.distinct().values_list('speaker_id', flat=True)

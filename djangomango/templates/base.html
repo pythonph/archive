@@ -18,21 +18,34 @@
 
   <div class="container">
     <div class="page-header">
-      <h1>
-        <a href="{% url home %}">{% trans "PyCon Philippines 2013" %}</a>
-        <span>
+      <div class="row">
+        <h1 class="span6">
+          <a href="{% url home %}">{% trans "PyCon Philippines 2013" %}</a>
+        </h1>
+        <div id="primary-nav" class="span5 offset1">
           {% if request.user.is_authenticated %}
-            <a href="{% url logout %}" class="btn">{% trans "Logout" %}</a>
-            {% if request.user|in_group:"moderator" %}
-            <a href="{% url schedule_proposal %}" class="btn">{% trans "Schedule" %}</a>
-            {% endif %}
-            <a href="{% url submit_proposal %}" class="btn btn-success">{% trans "Submit Proposal" %}</a>
+            <ul class="nav nav-pills">
+              <li><a href="{% url submit_proposal %}">{% trans "Submit Proposal" %}</a></li>
+              {% if request.user|in_group:"moderator" %}
+              <li><a href="{% url schedule_proposal %}">{% trans "Schedule" %}</a></li>
+              {% endif %}
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "My Account" %} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url profile_details request.user.profile.slug %}">{% trans "Profile" %}</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{% url logout %}">{% trans "Logout" %}</a></li>
+                </ul>
+              </li>
+            </ul>
           {% else %}
-            <a href="{% url signup %}" class="btn btn-success">{% trans "Signup" %}</a>
-            <a href="{% url login %}" class="btn btn-info">{% trans "Login" %}</a>
+            <span>
+              <a href="{% url login %}" class="btn btn-info">{% trans "Login" %}</a>
+              <a href="{% url signup %}" class="btn btn-success">{% trans "Signup" %}</a>
+            </span>
           {% endif %}
-        </span>
-      </h1>
+        </div>
+      </div>
     </div>
 
     {% block messages %}
@@ -60,10 +73,10 @@
   <script type="text/javascript">
   $(function() {
     // check which page is active
-    $('.page-header h1 span a').each(function() {
+    $('#primary-nav > ul > li > a').each(function() {
         var href = $(this).attr('href'),
             currentUri = "{{ request.path }}";
-        if (currentUri == href) $(this).addClass('active-page');
+        if (currentUri == href) $(this).parent('li').addClass('active');
     });
   });
   </script>

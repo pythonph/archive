@@ -16,7 +16,8 @@ class RegistrationBackend(SimpleBackend):
         user = User.objects.create_user(email, email, password)
         user.first_name = kwargs['first_name']
         user.last_name = kwargs['last_name']
-        user.save()
+        user.save()           # save name
+        user.profile.save()   # save profile to slugify the name
 
         # authenticate() always has to be called before login(), and
         # will return the user we just created.

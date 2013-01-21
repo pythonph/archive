@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {% trans "Edit Profile" %}{% endblock %}
+
+{% block content %}
+<div id="edit-profile">
+  <form class="form-horizontal" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Edit Profile" %}</legend>
+
+        {% for field in form %}
+          {% include "includes/_form_field.html" %}
+        {% endfor %}
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock content %}

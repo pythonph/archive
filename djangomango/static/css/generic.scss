@@ -2,16 +2,15 @@
 @import "bootstrap/mixins";
 
 .page-header {
-  span {
-    .btn {
+  h1 a:hover {
+    text-decoration: none;
+    color: $orange;
+  }
+  #primary-nav {
+    > .nav,
+    > span {
+      margin: 15px 0 0 0;
       float: right;
-      margin: 5px 5px 5px 0;
-    }
-    .btn:first-child {
-      margin-right: 0;
-    }
-    .active-page {
-      @include buttonBackground($btnWarningBackground, $btnWarningBackgroundHighlight);
     }
   }
 }

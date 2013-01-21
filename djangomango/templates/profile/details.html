@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {{ profile.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div id="profile">
+  <h2>{{ profile.user.get_full_name|title }}</h2>
+
+</div>
+{% endblock content %}

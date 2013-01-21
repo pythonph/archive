@@ -26,6 +26,7 @@ SECRET_KEY = '+7^r4ytsx9h2_@*2yl=(+9ub02l6w3(x8upx+lbll%%-kqq181'
 
 INSTALLED_APPS = (
     'djangomango.apps.mango',
+    'djangomango.apps.profile',
     'djangomango.apps.proposal',
 
     'south',

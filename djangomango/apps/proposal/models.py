@@ -1,8 +1,8 @@
-from autoslug import AutoSlugField
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+
+from autoslug import AutoSlugField
 
 from ..mango.models import BaseModel
 
@@ -48,7 +48,7 @@ class AudienceLevel(models.Model):
 class Proposal(BaseModel):
     speaker = models.ForeignKey(User, related_name='proposals')
     title = models.CharField(max_length=200)
-    slug = AutoSlugField(populate_from='title')
+    slug = AutoSlugField(populate_from='title', unique=True)
     type = models.ForeignKey(ProposalType)
     audience = models.ForeignKey(AudienceLevel)
     category = models.ForeignKey(Category)
