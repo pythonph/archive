@@ -125,8 +125,13 @@
 }
 
 #edit-profile {
-  .control-group textarea {
-    width: 600px;
+  .control-group {
+    textarea {
+      width: 400px;
+    }
+    input[type=file] {
+      line-height: 10px;
+    }
   }
   .thumbnail {
     width: 200px;
