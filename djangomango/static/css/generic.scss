@@ -1,6 +1,20 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+@mixin audience() {
+  .novice {
+    background-color: $orange;
+  }
+
+  .intermediate {
+    background-color: $green;
+  }
+
+  .experienced {
+    background-color: $grayDark;
+  }
+}
+
 .page-header {
   h1 a:hover {
     text-decoration: none;
@@ -39,17 +53,7 @@
           color: $grayLight;
           margin-bottom: 5px;
 
-          .novice {
-            background-color: $orange;
-          }
-
-          .intermediate {
-            background-color: $green;
-          }
-
-          .experienced {
-            background-color: $grayDark;
-          }
+          @include audience();
         }
       }
     }
@@ -80,6 +84,10 @@
       }
     }
   }
+}
+
+#proposal {
+  @include audience();
 }
 
 #submit-proposal {
