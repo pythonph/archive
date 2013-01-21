@@ -35,6 +35,7 @@ INSTALLED_APPS = (
     'registration',
     'longerusername',
     'templatetag_handlebars',
+    'imagekit',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,6 +1,7 @@
-# from django.views.generic.edit import FormMixin
-from django.views.generic import FormView, DetailView, UpdateView
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.views.generic import DetailView, UpdateView
+from django.http import Http404
+from django.utils.translation import ugettext as _
 
 from braces.views import LoginRequiredMixin
 
@@ -15,9 +16,9 @@ class GetProfileMixin(object):
         slug = self.kwargs.get(self.slug_url_kwarg, None)
         try:
             return UserProfile.objects.get(slug=slug)
-        except Proposal.DoesNotExist:
+        except UserProfile.DoesNotExist:
             raise Http404
-        
+
 
 class ProfileDetailsView(GetProfileMixin, DetailView):
     template_name = 'profile/details.html'
@@ -40,3 +41,10 @@ class ProfileEditView(LoginRequiredMixin, GetProfileMixin, UpdateView):
         data['last_name'] = profile.user.last_name
 
         return data
+
+    def form_valid(self, form):
+        form.instance.user.first_name = form.cleaned_data['first_name']
+        form.instance.user.last_name = form.cleaned_data['last_name']
+        form.instance.user.save()
+        messages.info(self.request, _(u"Your profile has been updated."))
+        return super(ProfileEditView, self).form_valid(form)

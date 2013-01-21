@@ -6,6 +6,11 @@
 
 {% block content %}
 <div id="profile">
+
+  <div class="thumbnail">
+    <img src="{{ profile.mugshot_thumbnail.url }}">
+  </div>
+
   <h2>{{ profile.user.get_full_name|title }}</h2>
 
   {% if profile.bio %}
@@ -14,7 +19,7 @@
 
   {% if request.user.is_authenticated and request.user.id == profile.user.id %}
   <div class="actions">
-    <a href="#">{% trans "Edit Profile" %}</a>
+    <a href="{% url profile_edit profile.slug %}">{% trans "Edit Profile" %}</a>
   </div>
   {% endif %}
 

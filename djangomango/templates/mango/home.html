@@ -18,6 +18,7 @@
     </ul>
 
     <div class="tab-content">
+
       <div id="approved-proposals" class="tab-pane active">
         {% if proposal_list %}
           <ul>
@@ -42,21 +43,24 @@
           <p>{% trans "There are no proposals yet." %}</p>
         {% endif %}
       </div>
+
       <div id="speakers" class="tab-pane">
         {% if speaker_list %}
           <ul>
-            {% paginate speaker_list %}
             {% for speaker in speaker_list %}
             <li>
-              <h3><a href="{{ speaker.get_absolute_url }}">{{ speaker.get_full_name }}</a></h3>
+              <div class="thumbnail">
+                <img src="{{ speaker.profile.mugshot_thumbnail.url }}">
+              </div>
+              <a href="{{ speaker.get_absolute_url }}">{{ speaker.get_full_name }}</a>
             </li>
             {% endfor %}
           </ul>
-          {% show_pages %}
         {% else %}
           <p>{% trans "There are no speakers yet." %}</p>
         {% endif %}
       </div>
+
     </div>
   </div>
 

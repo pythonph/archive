@@ -1,23 +1,22 @@
 from django import forms
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 
-class ImageWidget(forms.FileInput):
-    template = '%(input)s<br />%(image)s'
+class ThumbnailImageWidget(forms.FileInput):
+    """
+    Image widget that knows how to display thumbnail when one is present.
+    """
 
-    def __init__(self, attrs=None, template=None, width=200, height=200):
-        if template is not None:
-            self.template = template
-        self.width = width
-        self.height = height
-        self.image_url = None
-        super(ImageWidget, self).__init__(attrs)
+    template = '<div class="thumbnail">%(image)s</div>%(input)s'
 
     def render(self, name, value, attrs=None):
-        input_html = super(forms.FileInput, self).render(name, value, attrs)
-        if self.image_url:
+        input_html = super(ThumbnailImageWidget, self).render(name, value, attrs)
+
+        if self.thumbnail:
             output = self.template % {
                 'input': input_html,
-                'image': '<img src="%s" />' % self.image_url
+                'image': '<img src="%s">' % self.thumbnail.url
             }
         else:
             output = input_html

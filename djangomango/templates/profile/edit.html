@@ -6,7 +6,7 @@
 
 {% block content %}
 <div id="edit-profile">
-  <form class="form-horizontal" method="post">
+  <form class="form-horizontal" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset>
       <legend>{% trans "Edit Profile" %}</legend>

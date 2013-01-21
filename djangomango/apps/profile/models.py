@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
+from imagekit.imagecache.base import NonValidatingImageCacheBackend
 from autoslug import AutoSlugField
 
 from .utils import get_mugshots_path
@@ -16,9 +18,13 @@ class UserProfile(models.Model):
         always_update=True,
         populate_from=lambda instance: instance.user.get_full_name())
     mugshot = models.ImageField(upload_to=get_mugshots_path)
-    mugshot_thumbnail = ImageSpecField(image_field='mugshot',
-                                       format='JPEG',
-                                       options={'quality': 90})
+    mugshot_thumbnail = ImageSpecField(
+        [ResizeToFill(200, 230)],
+        image_field='mugshot',
+        format='JPEG',
+        options={'quality': 90},
+        image_cache_backend=NonValidatingImageCacheBackend())
+
     bio = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
