@@ -11,8 +11,12 @@ class RegistrationBackend(SimpleBackend):
 
     def register(self, request, **kwargs):
         """ Override register since we no longer use username. """
+
         email, password = kwargs['email'], kwargs['password1']
-        User.objects.create_user(email, email, password)
+        user = User.objects.create_user(email, email, password)
+        user.first_name = kwargs['first_name']
+        user.last_name = kwargs['last_name']
+        user.save()
 
         # authenticate() always has to be called before login(), and
         # will return the user we just created.
