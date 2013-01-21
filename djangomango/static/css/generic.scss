@@ -17,38 +17,44 @@
 }
 
 #home {
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .nav-tabs {
+    padding-left: 20px;
+  }
 
-    li {
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid $grayLighter;
+  #approved-proposals {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
 
-      h3 {
-        margin-bottom: 5px;
-      }
+      li {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $grayLighter;
 
-      .speaker {
-        .novice {
-          background-color: $orange;
+        h3 {
+          margin-bottom: 5px;
         }
-        .intermediate {
-          background-color: $green;
-        }
-        .experienced {
-          background-color: $grayDark;
+
+        .speaker {
+          color: $grayLight;
+          margin-bottom: 5px;
+
+          .novice {
+            background-color: $orange;
+          }
+
+          .intermediate {
+            background-color: $green;
+          }
+
+          .experienced {
+            background-color: $grayDark;
+          }
         }
       }
     }
-  }
-
-  .speaker {
-    color: $grayLight;
-    margin-bottom: 5px;
-  }
+  }  
 }
 
 #submit-proposal {

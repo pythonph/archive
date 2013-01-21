@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load i18n endless %}
+
+{% block head_title %}{{ block.super }} | {% trans "Home" %}{% endblock %}
+
+{% block content %}
+<div id="home">
+
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#approved-proposals" data-toggle="tab">{% trans "Approved Proposals" %}</a>
+      </li>
+      <li>
+        <a href="#speakers" data-toggle="tab">{% trans "Speakers" %}</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="approved-proposals" class="tab-pane active">
+        {% if proposal_list %}
+          <ul>
+            {% paginate proposal_list %}
+            {% for proposal in proposal_list %}
+            <li>
+              <h3><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></h3>
+              <div class="speaker">
+                {{ proposal.speaker.get_full_name }} / 
+                {% with proposal.audience.name as audience_name %}
+                  <span class="label {{ audience_name|lower }}">
+                    {{ audience_name }}
+                  </span>
+                {% endwith %}
+              </div>
+              <p>{{ proposal.description }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+          {% show_pages %}
+        {% else %}
+          <p>{% trans "There are no proposals yet." %}</p>
+        {% endif %}
+      </div>
+      <div id="speakers" class="tab-pane">
+        speakers goes here!
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
