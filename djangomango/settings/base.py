@@ -92,6 +92,7 @@ MEDIA_ROOT = os.path.join(VAR_ROOT, 'uploads')
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, 'uploads'),
 )
 
 #==============================================================================
@@ -154,6 +155,8 @@ DEFAULT_FROM_EMAIL = ''
 #==============================================================================
 # Miscellaneous project settings
 #==============================================================================
+
+AUTH_PROFILE_MODULE = 'mango.UserProfile'
 
 # site info
 SITE_NAME = 'PyCon Philippines'
