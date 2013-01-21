@@ -17,7 +17,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'', include('djangomango.apps.mango.urls')),
-    (r'proposal/', include('djangomango.apps.proposal.urls')),
+    (r'^proposal/', include('djangomango.apps.proposal.urls')),
 
     # contrib apps
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
