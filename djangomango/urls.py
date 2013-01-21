@@ -3,7 +3,9 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf.urls.defaults import patterns, url, include
 from django.contrib.auth.views import login, logout
-# from django.core.urlresolvers import reverse
+from django.contrib.auth.views import (password_reset, password_reset_confirm,
+                                       password_reset_done,
+                                       password_reset_complete)
 
 from djangomango.apps.mango.forms import SignupForm, LoginForm
 
@@ -23,6 +25,26 @@ urlpatterns = patterns('',
 
     url(r'^login/$', login, {'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
+    url(
+        r'^accounts/password/reset/$',
+        password_reset,
+        name='password_reset'
+    ),
+    url(
+        r'^accounts/password/reset/done/$',
+        password_reset_done,
+        name='password_reset_done'
+    ),
+    url(
+        r'^accounts/password/reset/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        password_reset_confirm,
+        name='password_reset_confirm'
+    ),
+    url(
+        r'^accounts/password/reset/complete/$',
+        password_reset_complete,
+        name='password_reset_complete'
+    ),
 
     # 3rd party apps
     url(

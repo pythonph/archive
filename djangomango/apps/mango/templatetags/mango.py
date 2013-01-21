@@ -77,9 +77,3 @@ def coffee(path):
             logger.debug(e)
 
     return static(filename)
-
-
-@register.filter
-def in_group(user, groups):
-    """ Checks if user is member of groups. """
-    return bool(user.groups.filter(name__in=groups.split(',')).values('name'))
