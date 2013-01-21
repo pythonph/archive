@@ -6,7 +6,7 @@ from ..mango.widgets import ThumbnailImageWidget
 
 
 class UserProfileForm(forms.ModelForm):
-    mugshot = forms.ImageField(widget=ThumbnailImageWidget)
+    mugshot = forms.ImageField(widget=ThumbnailImageWidget, required=False)
     first_name = forms.CharField()
     last_name = forms.CharField()
 

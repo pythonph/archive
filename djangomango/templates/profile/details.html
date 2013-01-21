@@ -7,9 +7,11 @@
 {% block content %}
 <div id="profile">
 
+  {% if profile.mugshot %}
   <div class="thumbnail">
     <img src="{{ profile.mugshot_thumbnail.url }}">
   </div>
+  {% endif %}
 
   <h2>{{ profile.user.get_full_name|title }}</h2>
 

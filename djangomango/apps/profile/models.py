@@ -17,13 +17,14 @@ class UserProfile(models.Model):
         unique=True,
         always_update=True,
         populate_from=lambda instance: instance.user.get_full_name())
-    mugshot = models.ImageField(upload_to=get_mugshots_path)
+    mugshot = models.ImageField(upload_to=get_mugshots_path,
+                                null=True,
+                                blank=True)
     mugshot_thumbnail = ImageSpecField(
         [ResizeToFill(200, 230)],
         image_field='mugshot',
         format='JPEG',
-        options={'quality': 90},
-        image_cache_backend=NonValidatingImageCacheBackend())
+        options={'quality': 90})
 
     bio = models.TextField(null=True, blank=True)
 
