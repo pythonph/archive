@@ -155,6 +155,10 @@ DEFAULT_FROM_EMAIL = ''
 # Miscellaneous project settings
 #==============================================================================
 
+# site info
+SITE_NAME = 'PyCon Philippines'
+SITE_HOSTNAME = ''
+
 # SCSS
 SCSS_LOAD_PATHS = [
     os.path.join(PROJECT_DIR, 'static', 'css/sass')
