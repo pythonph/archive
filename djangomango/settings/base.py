@@ -179,6 +179,9 @@ SCSS_REBUILD = False
 # coffeescript
 COFFEE_REBUILD = False
 
+# gravatar
+GRAVATAR_URL = 'http://www.gravatar.com/avatar/'
+
 #==============================================================================
 # Third party app settings
 #==============================================================================

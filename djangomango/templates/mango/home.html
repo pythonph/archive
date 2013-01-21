@@ -52,6 +52,8 @@
               <div class="thumbnail">
                 {% if speaker.profile.mugshot %}
                   <img src="{{ speaker.profile.mugshot_thumbnail.url }}">
+                {% else %}
+                  <img src="{{ speaker.profile.gravatar_url }}">
                 {% endif %}
               </div>
               <a href="{{ speaker.profile.get_absolute_url }}">{{ speaker.get_full_name }}</a>
