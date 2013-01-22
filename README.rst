@@ -34,3 +34,25 @@ Notes
 
 This project is generated based on lincoln loop's Django Best Practices.
 http://lincolnloop.com/django-best-practices/index.html
+
+Contributing
+------------
+
+When contributing you create a new branch based on :code:`develop` and when you're done merge it back to :code:`develop` then send a pull-request::
+
+    // clone the project
+
+    git checkout develop
+    git checkout -b <some_feature>
+
+    // make some changes
+
+    git checkout develop
+    git merge <some_feature>
+    git push origin develop
+
+    // send pull request in github
+
+All releases should be tagged::
+
+    git tag -a v0.1 -m 'version 0.1' <commit hash>
