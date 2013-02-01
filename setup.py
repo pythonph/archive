@@ -3,11 +3,8 @@
 import os
 import sys
 import assetstoolkit
+from setuptools import setup, find_packages
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist register upload')
@@ -20,7 +17,7 @@ requires = ['pyScss==1.1.4',
 setup(
     name=assetstoolkit.__title__,
     version=assetstoolkit.__version__,
-    packages=packages,
+    packages=find_packages(),
     license=open('LICENSE.txt').read(),
     description='A development toolkit for compiling sass and coffee script files.',
     long_description=open('README.rst').read(),
