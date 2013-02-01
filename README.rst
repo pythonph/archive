@@ -3,6 +3,11 @@ Django Assets Toolkit
 
 A development toolkit for compiling sass and coffee script files.
 
+Installation
+------------
+
+:code:`pip install -U django-assets-toolkit`
+
 Usage
 -----
 
