@@ -116,11 +116,12 @@ def coffee(path):
     """ Compile coffeescript file if needed and return its url. """
 
     filename = '%s.js' % os.path.splitext(os.path.basename(path))[0]
-
     coffee_file = get_asset_path(path)
 
-    segments = os.sep.join(os.path.dirname(coffee_file).split(os.sep)[:-1])
-    js_file = os.path.join(segments, COFFEE_OUTPUT, filename)
+    segments = path.split(os.sep)[1:-1]
+    segments.append(filename)
+    js_filename = os.path.join(COFFEE_OUTPUT, *segments)
+    js_file = coffee_file.replace(path, js_filename)
 
     if not os.path.isfile(js_file):
         js_mtime = -1
@@ -137,7 +138,7 @@ def coffee(path):
             logger.debug("Can't compile coffee script file: %s" % coffee)
             logger.debug(e)
 
-    return static(filename)
+    return static(js_filename)
 
 
 def get_asset_path(path):
