@@ -12,7 +12,8 @@ from django.template.base import TemplateSyntaxError
 
 from .settings import (STATIC_ROOT, STATIC_URL, LOAD_PATHS, ASSETS_ROOT,
                        ASSETS_URL, SCSS_COMPRESS, SCSS_DEBUG_INFO,
-                       SCSS_REBUILD, COFFEE_OUTPUT, COFFEE_REBUILD)
+                       SCSS_REBUILD, COFFEE_OUTPUT, COFFEE_REBUILD,
+                       LESS_REBUILD)
 
 
 logger = logging.getLogger('assetstoolkit')
@@ -57,7 +58,7 @@ def _init_scss():
 
 @register.simple_tag
 def scss(path):
-    """ Compile scss files if needed and return its url. """
+    """ Compile scss file if needed and return its url. """
 
     _scss = _init_scss()
 
@@ -85,8 +86,34 @@ def scss(path):
 
 
 @register.simple_tag
+def less(path):
+    """ Compile less file if needed and return its url. """
+
+    filename = '%s.css' % os.path.splitext(path)[0]
+    less_file = get_asset_path(path)
+    css_file = os.path.join(os.path.dirname(less_file),
+                            os.path.basename(filename))
+
+    if not os.path.isfile(css_file):
+        css_mtime = -1
+    else:
+        css_mtime = os.path.getmtime(css_file)
+
+    if os.path.getmtime(less_file) >= css_mtime and LESS_REBUILD:
+        try:
+            os.system('lessc %(from)s > %(to)s -x' %
+                      {'from': less_file, 'to': css_file})
+            logger.info('Compiled less file: %s' % less_file)
+        except Exception as e:
+            logger.debug("Can't compile less file: %s" % less_file)
+            logger.debug(e)
+
+    return static(filename)
+
+
+@register.simple_tag
 def coffee(path):
-    """ Compile coffeescript files if needed and return its url. """
+    """ Compile coffeescript file if needed and return its url. """
 
     filename = '%s.js' % os.path.splitext(os.path.basename(path))[0]
 
