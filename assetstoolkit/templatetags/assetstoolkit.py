@@ -72,15 +72,16 @@ def scss(path):
     else:
         css_mtime = os.path.getmtime(css_file)
 
-    if os.path.getmtime(scss_file) >= css_mtime and SCSS_REBUILD:
-        try:
-            compiled = _scss.compile(open(scss_file).read())
-            with open(css_file, 'w') as f:
-                f.write(compiled)
-            logger.info('Compiled scss file: %s' % scss_file)
-        except Exception as e:
-            logger.debug("Can't compile scss file: %s" % scss_file)
-            logger.debug(e)
+    if SCSS_REBUILD:
+        if os.path.getmtime(scss_file) >= css_mtime:
+            try:
+                compiled = _scss.compile(open(scss_file).read())
+                with open(css_file, 'w') as f:
+                    f.write(compiled)
+                logger.info('Compiled scss file: %s' % scss_file)
+            except Exception as e:
+                logger.debug("Can't compile scss file: %s" % scss_file)
+                logger.debug(e)
 
     return static(filename)
 
@@ -99,14 +100,15 @@ def less(path):
     else:
         css_mtime = os.path.getmtime(css_file)
 
-    if os.path.getmtime(less_file) >= css_mtime and LESS_REBUILD:
-        try:
-            os.system('lessc %(from)s > %(to)s -x' %
-                      {'from': less_file, 'to': css_file})
-            logger.info('Compiled less file: %s' % less_file)
-        except Exception as e:
-            logger.debug("Can't compile less file: %s" % less_file)
-            logger.debug(e)
+    if LESS_REBUILD:
+        if os.path.getmtime(less_file) >= css_mtime:
+            try:
+                os.system('lessc %(from)s > %(to)s -x' %
+                          {'from': less_file, 'to': css_file})
+                logger.info('Compiled less file: %s' % less_file)
+            except Exception as e:
+                logger.debug("Can't compile less file: %s" % less_file)
+                logger.debug(e)
 
     return static(filename)
 
@@ -128,15 +130,16 @@ def coffee(path):
     else:
         js_mtime = os.path.getmtime(js_file)
 
-    if os.path.getmtime(coffee_file) >= js_mtime and COFFEE_REBUILD:
-        try:
-            compiled = coffeescript.compile(open(coffee_file).read())
-            with open(js_file, 'w') as f:
-                f.write(compiled)
-            logger.info('Compiled coffee script file: %s' % coffee_file)
-        except Exception as e:
-            logger.debug("Can't compile coffee script file: %s" % coffee)
-            logger.debug(e)
+    if COFFEE_REBUILD:
+        if os.path.getmtime(coffee_file) >= js_mtime:
+            try:
+                compiled = coffeescript.compile(open(coffee_file).read())
+                with open(js_file, 'w') as f:
+                    f.write(compiled)
+                logger.info('Compiled coffee script file: %s' % coffee_file)
+            except Exception as e:
+                logger.debug("Can't compile coffee script file: %s" % coffee)
+                logger.debug(e)
 
     return static(js_filename)
 
