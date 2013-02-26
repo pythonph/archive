@@ -18,7 +18,6 @@ setup(
     name=assetstoolkit.__title__,
     version=assetstoolkit.__version__,
     packages=find_packages(),
-    license=open('LICENSE.txt').read(),
     description='A development toolkit for compiling sass and coffee script files.',
     long_description=open('README.rst').read(),
     author='Marconi Moreto',
