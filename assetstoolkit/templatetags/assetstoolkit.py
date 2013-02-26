@@ -1,8 +1,10 @@
+import re
 import os
 import scss as pyscss
 import coffeescript
 import logging
 import fnmatch
+import tempfile
 
 from django.conf import settings
 from django.template.base import Library
@@ -18,6 +20,8 @@ from .settings import (STATIC_ROOT, STATIC_URL, LOAD_PATHS, ASSETS_ROOT,
 
 logger = logging.getLogger('assetstoolkit')
 register = Library()
+
+STATIC_PATTERN = re.compile(r'url\(\{\% static (.*) \%\}\)')
 
 
 def finder(glob):
@@ -41,6 +45,29 @@ def memoize_scss(func):
             cache['scss'] = func()
         return cache['scss']
     return wrapper
+
+
+def context_match(matchobj):
+    uri = matchobj.group(1)
+    uri = uri.strip(' \'"')
+    return "url('%s')" % static(uri)
+
+
+def create_tmp_file(static_file):
+    """
+    Look for static template tag on the less file
+    and fetch the full url by passing it to static.
+    """
+    with open(static_file, 'r') as handle:
+        static_content = STATIC_PATTERN.sub(context_match, handle.read())
+
+        # create the temporary file as sibling of original file
+        # so any mixin import (in case of less/sass) can be found.
+        tmp_file = tempfile.NamedTemporaryFile(
+            delete=False, dir=os.path.dirname(static_file))
+        tmp_file.write(static_content)
+        tmp_file.close()
+        return tmp_file
 
 
 @memoize_scss
@@ -74,14 +101,19 @@ def scss(path):
 
     if SCSS_REBUILD:
         if os.path.getmtime(scss_file) >= css_mtime:
+            tmp_file = create_tmp_file(scss_file)
+
             try:
-                compiled = _scss.compile(open(scss_file).read())
+                compiled = _scss.compile(open(tmp_file).read())
                 with open(css_file, 'w') as f:
                     f.write(compiled)
                 logger.info('Compiled scss file: %s' % scss_file)
             except Exception as e:
                 logger.debug("Can't compile scss file: %s" % scss_file)
                 logger.debug(e)
+
+            # remove temporary file
+            os.unlink(tmp_file.name)
 
     return static(filename)
 
@@ -102,13 +134,18 @@ def less(path):
 
     if LESS_REBUILD:
         if os.path.getmtime(less_file) >= css_mtime:
+            tmp_file = create_tmp_file(less_file)
+
             try:
                 os.system('lessc %(from)s > %(to)s -x' %
-                          {'from': less_file, 'to': css_file})
+                          {'from': tmp_file.name, 'to': css_file})
                 logger.info('Compiled less file: %s' % less_file)
             except Exception as e:
                 logger.debug("Can't compile less file: %s" % less_file)
                 logger.debug(e)
+
+            # remove temporary file
+            os.unlink(tmp_file.name)
 
     return static(filename)
 

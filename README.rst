@@ -39,3 +39,8 @@ Note
 It will put the compiled sass file in the same directory of .scss file while it'll put the compiled coffee script on the same level where the script is contained but within ``js`` directory. If you want the compiled script to be on a different directory just override ``COFFEE_OUTPUT`` settings which should be sibling of directory where script is located.
 
 For the ``CoffeeScript`` package to work, you need to actually have the `Coffee Script <http://coffeescript.org/>`_ binary in your system. The same is true for ``Less``.
+
+License
+-------
+
+http://marconi.mit-license.org/

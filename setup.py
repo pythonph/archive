@@ -25,6 +25,5 @@ setup(
     author_email='caketoad@gmail.com',
     url='https://github.com/pypug/django-assets-toolkit',
     zip_safe=False,
-    package_data={'': ['LICENSE.txt']},
     install_requires=requires
 )
