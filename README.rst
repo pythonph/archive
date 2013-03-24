@@ -1,3 +1,6 @@
+PROJECT IS TEMPORARILY DISCONTINUED
+===================================
+
 .. 
 
 django-mango
