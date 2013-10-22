@@ -8,7 +8,7 @@ from sqlalchemy.dialects.postgresql import *
 from app_mailreg import db
 
 
-__all__ = ["UserDB", "Contact", "Phone", "Email", "UserNotification"]
+__all__ = ["UserDB", "UserContact", "ContactPhone", "ContactEmail", "UserNotification"]
 
 
 class UserDB(db.Model):
@@ -31,7 +31,7 @@ class UserDB(db.Model):
     timestamp_create = Column(
         TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
 
-    contact = relationship("Contact", backref=backref("user", uselist=False))
+    contact = relationship("UserContact", backref=backref("user", uselist=False))
     record_usernotification = relationship(
         "UserNotification", backref=backref("user"))
     record_userlogin = relationship(
@@ -57,7 +57,7 @@ class UserDB(db.Model):
             self.hash = None
 
 
-class Contact(db.Model):
+class UserContact(db.Model):
     __tablename__ = "contact"
     __table_args__ = (
         UniqueConstraint("id_user", name="ix_id_user-contact"),
@@ -80,8 +80,8 @@ class Contact(db.Model):
     # Implement website as one-off field for now.
     website = Column(VARCHAR, nullable=True, server_default=text("NULL"))
 
-    record_phone = relationship("Phone", backref=backref("contact"))
-    record_email = relationship("Email", backref=backref("contact"))
+    record_phone = relationship("ContactPhone", backref=backref("contact"))
+    record_email = relationship("ContactEmail", backref=backref("contact"))
 
     @hybrid_property
     def name_last(self):
@@ -114,7 +114,7 @@ class Contact(db.Model):
             self.name_suffix if self.name_suffix else "")
         return " ".join(x).strip()
 
-    def __init__(self, id_user, name_last, name_first, **kwargs):
+    def __init__(self, id_user, name_first, name_last=None, **kwargs):
         self.id_user = id_user
         self.name_last = name_last
         self.name_first = name_first
@@ -123,7 +123,7 @@ class Contact(db.Model):
 PHONE_TYPES = ("mobile", "home", "office", "fax")
 
 
-class Phone(db.Model):
+class ContactPhone(db.Model):
     __tablename__ = "phone"
     __table_args__ = (
         UniqueConstraint(
@@ -164,7 +164,7 @@ class Phone(db.Model):
 EMAIL_TYPES = ("personal", "work")
 
 
-class Email(db.Model):
+class ContactEmail(db.Model):
     __tablename__ = "email"
     __table_args__ = (
         UniqueConstraint("id_contact", "email", name="ix_id_contact-email"),

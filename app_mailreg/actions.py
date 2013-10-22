@@ -1,3 +1,5 @@
+from random import SystemRandom
+
 from passlib.hash import bcrypt
 
 from app_mailreg import app
@@ -11,6 +13,18 @@ def user_register(username, email, password, session):
     except Exception:
         # TODO: Catch db errors - existing usernames
         return False
+    contact = UserContact(user.id_user, user.name_user)
+    try:
+        session.add(contact)
+    except Exception:
+        return False
+    contact_email = ContactEmail(contact.id_contact, email)
+    try:
+        session.add(contact_email)
+    except Exception:
+        return False
+
+    #notification = UserNotification(user.id_user,s)
 
 
 def user_verify(username, token):
