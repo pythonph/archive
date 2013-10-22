@@ -7,7 +7,7 @@ from wtforms.validators import Email as EmailValidator
 from wtforms.validators import Length as LengthValidator
 
 
-__all__ = ["LoginForm", "BaseForm", "RegisterForm"]
+__all__ = ["LoginForm", "RegisterForm"]
 
 
 class LoginForm(Form):
@@ -25,21 +25,3 @@ class RegisterForm(Form):
     password_verify = PasswordField(
         "Verify Password", validators=[DataRequired(), EqualTo("password")])
     #recaptcha = RecaptchaField(validators=[Recaptcha()])
-
-
-class BaseForm(Form):
-    name_prefix = TextField("Prefix")
-    name_first = TextField("First Name")
-    name_last = TextField("Last Name", validators=[DataRequired()])
-    name_suffix = TextField("Suffix")
-    position = TextField("Position")
-    company = TextField("Company")
-    industry = TextField("Industry")
-    website = URLField("Website")
-    phone_1 = TextField("Phone")
-    phone_2 = TextField("Phone Secondary")
-    mobile_1 = TextField("Mobile")
-    mobile_2 = TextField("Mobile Secondary")
-    fax = TextField("Fax")
-    email = EmailField("Email")
-    email_2 = EmailField("Email Secondary")

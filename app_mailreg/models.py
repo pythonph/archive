@@ -70,7 +70,8 @@ class Contact(db.Model):
             "public.user.id_user", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False)
     _name_last = Column("name_last", VARCHAR, nullable=True)
-    _name_first = Column("name_first", VARCHAR, nullable=False)
+    _name_first = Column(
+        "name_first", VARCHAR, nullable=False, server_default=text("'noname'"))
     name_prefix = Column(VARCHAR, nullable=True)
     name_suffix = Column(VARCHAR, nullable=True)
     position = Column(VARCHAR, nullable=True)
@@ -102,7 +103,7 @@ class Contact(db.Model):
         if value:
             self._name_first = value.strip()
         else:
-            self._name_first = None
+            self._name_first = "noname"
 
     @hybrid_property
     def name(self):
@@ -112,6 +113,14 @@ class Contact(db.Model):
             self._name_last if self._name_last else "",
             self.name_suffix if self.name_suffix else "")
         return " ".join(x).strip()
+
+    def __init__(self, id_user, name_last, name_first, **kwargs):
+        self.id_user = id_user
+        self.name_last = name_last
+        self.name_first = name_first
+
+
+PHONE_TYPES = ("mobile", "home", "office", "fax")
 
 
 class Phone(db.Model):
@@ -133,9 +142,26 @@ class Phone(db.Model):
     number = Column(INTEGER, nullable=False, server_default=text("0"))
     extension = Column(INTEGER, nullable=True, server_default=text("NULL"))
     type_ = Column(
-        "type", ENUM("mobile", "home", "office", "fax", name="phone_types"),
+        "type", ENUM(*PHONE_TYPES, name="phone_types"),
         nullable=False, server_default=text("'mobile'"))
     is_default = Column(BOOLEAN, nullable=False, server_default=text("FALSE"))
+
+    def __init__(self, id_contact, number, phone_type="mobile",
+                 code_country=0, code_area=0, extension=None, default=True):
+        self.id_contact = id_contact
+        self.number = number
+        self.code_country = code_country
+        self.code_area = code_area
+        self.extension = extension
+        if phone_type in PHONE_TYPES:
+            self.type_ = phone_type
+        else:
+            raise ValueError(
+                "{0} is not a valid phone type".format(phone_type))
+        self.is_default = default
+
+
+EMAIL_TYPES = ("personal", "work")
 
 
 class Email(db.Model):
@@ -152,9 +178,22 @@ class Email(db.Model):
         nullable=False)
     email = Column(VARCHAR, nullable=False)
     type_ = Column(
-        "type", ENUM("personal", "work", name="=email_types"),
+        "type", ENUM(*EMAIL_TYPES, name="=email_types"),
         nullable=False, server_default=text("'personal'"))
     is_default = Column(BOOLEAN, nullable=False, server_default=text("FALSE"))
+
+    def __init__(self, id_contact, email, email_type="personal", default=True):
+        self.id_contact = id_contact
+        self.email = email
+        if email_type.lower() in EMAIL_TYPES:
+            self.type_ = email_type.lower()
+        else:
+            raise ValueError(
+                "{0} is not a valid email type".format(email_type))
+        self.is_default = default
+
+
+USERNOTIFICATION_TYPES = ("verify", "forgot", "reset", "remove")
 
 
 class UserNotification(db.Model):
@@ -170,15 +209,23 @@ class UserNotification(db.Model):
             "public.user.id_user", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False)
     type_ = Column(
-        "type", ENUM("verify", "forgot", "reset", "remove",
+        "type", ENUM(*USERNOTIFICATION_TYPES,
                      name="=usernotification_types"),
         nullable=True, server_default=text("NULL"))
     timestamp_sent = Column(
         TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
 
+    def __init__(self, id_user, notification_type):
+        self.id_user = id_user
+        if notification_type.lower() in USERNOTIFICATION_TYPES:
+            self.type_ = notification_type.lower()
+        else:
+            raise ValueError("{0} is not a valid user notification type".format(
+                notification_type))
+
 
 class UserLogin(db.Model):
-    # TODO: Implement anti-DDOS features on successful logins.
+    # TODO: Implement anti-DOS features on successful logins.
     __tablename__ = "user_login"
     __table_args__ = (
         {"schema": "public"})

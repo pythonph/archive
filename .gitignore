@@ -1,5 +1,6 @@
 */settings.py
 app_mailreg/static/js
+.hg
 
 # Python
 *.py[cod]
