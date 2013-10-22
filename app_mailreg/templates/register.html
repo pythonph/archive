@@ -1,0 +1,17 @@
+{% extends "root_template.html" %}
+
+{% from "_form_helper.html" import render_field %}
+
+{% block middle_column %}
+    <form method="POST" action="/register">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <dl>
+            {{ render_field(form.username) }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.email_verify) }}
+            {{ render_field(form.password) }}
+            {{ render_field(form.password_verify) }}
+        </dl>
+        <p><input type="submit" value="Register"></p>
+    </form>
+{% endblock %}

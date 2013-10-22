@@ -1,0 +1,14 @@
+{% extends "base_template.html" %}
+
+{% from "_form_helper.html" import render_field %}
+
+{% block middle_column %}
+	<form method="POST" action="/login">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		<dl>
+			{{ render_field(form.username) }}
+			{{ render_field(form.password) }}
+		</dl>
+		<p><input type="submit" value="Login"></p>
+	</form>
+{% endblock %}

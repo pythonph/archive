@@ -1,0 +1,6 @@
+syntax: glob
+*.pyc
+*.pyd
+*.sublime-*
+*/settings.py
+app_mailreg/static/js

@@ -1,0 +1,23 @@
+@import url("root.css");
+
+/*
+funny how that needs the ; to work when it's alone
+*/
+
+/* 
+the dodge through here prevents Flash Of Unstyled Content in ie6pc
+*/
+
+/*
+import with quotes and brackets hides css from:
+
+Netscape 4.x
+Win IE 3
+Win IE 4
+Mac IE 4.01
+Mac IE 4.5
+Konqueror 2.1.2
+Win Amaya 5.1
+
+isn't that nice to know?
+*/
