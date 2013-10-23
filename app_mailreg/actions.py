@@ -1,13 +1,11 @@
 from random import SystemRandom
 
-from passlib.hash import bcrypt
-
-from app_mailreg import app
 from app_mailreg.models import *
+from app_mailreg.util import ntoken_generate, password_encrypt, password_verify
+
 
 def user_register(username, email, password, session):
-    hash = bcrypt.encrypt(password, rounds=app.config["BCRYPT_WORKFACTOR"])
-    user = UserDB(username, hash=hash)
+    user = UserDB(username, hash=password_encrypt(password))
     try:
         session.add(user)
     except Exception:
@@ -23,12 +21,18 @@ def user_register(username, email, password, session):
         session.add(contact_email)
     except Exception:
         return False
-
-    #notification = UserNotification(user.id_user,s)
+    notification = UserNotification(ntoken_generate, user.id_user, "verify")
+    try:
+        session.add(notification)
+    except Exception:
+        return False
+    # Send email.
+    return True
 
 
 def user_verify(username, token):
     pass
+
 
 def user_reset(username):
     pass

@@ -215,7 +215,8 @@ class UserNotification(db.Model):
     timestamp_sent = Column(
         TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
 
-    def __init__(self, id_user, notification_type):
+    def __init__(self, ntoken, id_user, notification_type):
+        self.id_usernotification = ntoken
         self.id_user = id_user
         if notification_type.lower() in USERNOTIFICATION_TYPES:
             self.type_ = notification_type.lower()
