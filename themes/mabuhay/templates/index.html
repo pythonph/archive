@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="large-12 columns">
+    <section class="articles">
+
+    {% block content_title %}
+    <h2>News</h2>
+    {% endblock %}
+
+    {% for article in articles_page.object_list %}
+    <article>
+      <h3>
+        <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a>
+      </h3>
+      <div class="row">
+        <div class="large-4 columns">
+          <header>
+            <time title="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+            {%- if article.author %}
+            By <a class="url fn" href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>
+            {% endif -%}
+          </header>
+        </div>
+        <div class="large-8 columns">
+          <div class="summary">{{ article.summary }}</div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+
+    {% include 'pagination.html' %}
+
+    </section>
+  </div>
+</div>
+{% endblock content %}
