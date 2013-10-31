@@ -44,3 +44,7 @@ RECAPTCHA_PRIVATE_KEY = "private_key"
 # random
 
 NTOKEN_RANDOM_BITS = 192
+
+# Mailgun
+
+MAILGUN_API_KEY = "string"

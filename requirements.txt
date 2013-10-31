@@ -12,3 +12,4 @@ passlib==1.6.1
 psycopg2==2.5.1
 pycrypto==2.6.1
 python-bcrypt==0.3.2
+requests==2.0.1
