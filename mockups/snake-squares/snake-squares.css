@@ -1,0 +1,43 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+h1.logo{
+    font-family: "Droid Serif", serif;
+    color: #fff;
+}
+
+div.side_square{
+    width: 100%;
+    height: 10%;
+    margin-bottom: 3px;
+}
+
+div.side_yellow{
+    background-color: #dbe870;
+}
+
+div.python_blue{
+    background-color: #1c4e63;
+}
+
+div.banner_yellow{
+    background-color: #dbef4d;
+}
+
+div.header{
+    width: 100%;
+}
+
+div.side_banner_component{
+    float: left;
+    width: 10%;
+}
+
+div.center_banner_component{
+    float:left;
+    width: 79%;
+    height: 20%;
+    margin: auto 3px;
+}
