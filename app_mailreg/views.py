@@ -3,50 +3,15 @@ from datetime import datetime, date, timedelta
 
 
 from flask import (
-    render_template, Response, request, session, redirect, url_for, flash,
-    send_from_directory, g)
-from flask.ext.login import (
-    current_user, login_user, logout_user, login_required, UserMixin)
+    render_template, Response, request, session, redirect, url_for, flash, send_from_directory, g)
+from flask.ext.login import current_user, login_user, logout_user, login_required
 from passlib.hash import bcrypt
 
 
 from app_mailreg import app, login_manager, db
 from app_mailreg.forms import *
 from app_mailreg.models import *
-
-
-class User(UserMixin):
-
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return self.userdb.active
-
-    def is_anonymous(self):
-        return self.anonymous
-
-    def get_id(self):
-        return self.id
-
-    def authenticate(self):
-        try:
-            return bcrypt.verify(self.password, self.userdb.hash)
-        except Exception:
-            return False
-
-    def __init__(self, id, password=None, userdb=None):
-        self.id = unicode(id)
-        self.userdb = userdb if userdb else UserDB.query.filter_by(
-            name_user=self.id).first()
-        self.anonymous = False if self.userdb else True
-        self.password = password
-
-
-@login_manager.user_loader
-def load_user(id):
-    u = UserDB.query.filter_by(name_user=id).first()
-    return User(u.name_user, userdb=u) if u else None
+from app_mailreg.util import User
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -65,15 +30,15 @@ def login():
                 flash("Login failed: username not recognized or invalid password")
     return render_template("login.html", user=current_user, form=form)
 
+login_manager.login_view = "login"
+
 
 @app.route("/logout")
-@login_required
 def logout():
-    logout_user()
-    flash("You had been logged out")
+    if current_user.is_authenticated:
+        flash("You had been logged out")
+        logout_user()
     return redirect(url_for("index"))
-
-login_manager.login_view = "login"
 
 
 @app.route("/")
@@ -103,6 +68,4 @@ def favicon():
 
     """
     return send_from_directory(
-        path.join(app.root_path, "static"),
-        "favicon.ico",
-        mimetype="image/vnd.microsoft.icon")
+        path.join(app.root_path, "static"), "favicon.ico", mimetype="image/vnd.microsoft.icon")

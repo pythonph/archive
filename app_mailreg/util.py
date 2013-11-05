@@ -1,11 +1,12 @@
 import random
 from base64 import urlsafe_b64encode
 
-import Crypto.Random.random import StrongRandom
+from Crypto.Random.random import StrongRandom
 from Crypto.Util.number import long_to_bytes
 from passlib.hash import bcrypt
+from flask.ext.login import UserMixin
 
-from app_mailreg import app.config
+from app_mailreg import app, login_manager
 
 
 __all__ = ["ntoken_generate", "password_encrypt", "password_verify"]
@@ -33,3 +34,37 @@ def password_encrypt(password):
 
 def password_verify(password, hash):
     return bcrypt.verify(password, hash)
+
+
+class User(UserMixin):
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return self.userdb.active
+
+    def is_anonymous(self):
+        return self.anonymous
+
+    def get_id(self):
+        return self.id
+
+    def authenticate(self):
+        try:
+            p = password_verify(self.password, self.userdb.hash)
+            return p and self.userdb.is_active and self.userdb.is_verified
+        except Exception:
+            return False
+
+    def __init__(self, id, password=None, userdb=None):
+        self.id = unicode(id)
+        self.userdb = userdb if userdb else UserDB.query.filter_by(name_user=self.id).first()
+        self.anonymous = False if self.userdb else True
+        self.password = password
+
+
+@login_manager.user_loader
+def load_user(id):
+    u = UserDB.query.filter_by(name_user=id).first()
+    return User(u.name_user, userdb=u) if u else None

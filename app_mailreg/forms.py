@@ -18,10 +18,8 @@ class LoginForm(Form):
 class RegisterForm(Form):
     username = TextField("Username", validators=[DataRequired()])
     email = EmailField("Email",  validators=[DataRequired(), EmailValidator()])
-    email_verify = EmailField(
-        "Verify Email",  validators=[DataRequired(), EqualTo("email")])
-    password = PasswordField(
-        "Password", validators=[DataRequired(), LengthValidator(min=8)])
+    email_verify = EmailField("Verify Email",  validators=[DataRequired(), EqualTo("email")])
+    password = PasswordField("Password", validators=[DataRequired(), LengthValidator(min=8)])
     password_verify = PasswordField(
         "Verify Password", validators=[DataRequired(), EqualTo("password")])
     #recaptcha = RecaptchaField(validators=[Recaptcha()])
