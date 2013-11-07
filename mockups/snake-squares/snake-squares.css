@@ -9,7 +9,7 @@ body{
 
 div.main_centerize{
     width: 80%;
-    margin: 0% 10%;
+    margin: 0% 13%;
 }
 
 h1.logo{
@@ -49,4 +49,12 @@ div.center_banner_component{
     height: 153px;
     margin: auto 3px;
     padding: 5px;
+}
+
+div.page_body{
+    background-color: #fff;
+    border-width: 0px 10px 10px;
+    border-color: #000;
+    min-height: 300px;
+    width: 900px;
 }
