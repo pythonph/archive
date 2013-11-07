@@ -3,6 +3,15 @@
     margin: 0px;
 }
 
+body{
+    background-image:url("img/white_carbon.png");
+}
+
+div.main_centerize{
+    width: 80%;
+    margin: 0% 10%;
+}
+
 h1.logo{
     font-family: "Droid Serif", serif;
     color: #fff;
