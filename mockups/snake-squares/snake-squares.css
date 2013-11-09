@@ -61,9 +61,14 @@ div.page_body{
     border-width: 0px 10px 10px;
     border-color: #000;
     min-height: 600px;
-    width: 976px;
-    /*position: absolute;*/
+    width: 964px;
     margin-top: 175px;
+    padding: 10px 6px;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-weight: lighter;
 }
 
 div.boilerplate{
