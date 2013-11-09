@@ -36,7 +36,7 @@ div.python_blue{
 }
 
 div.banner{
-    background-color: #2f36aa;
+    background-color: #205081;
 }
 
 div.header{
@@ -68,6 +68,11 @@ div.page_body{
 
 div.boilerplate{
     background-color: #dadada;
-    width: 976px;
-    height: 200px;
+    width: 967px;
+    height: 100px;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+    padding: 5px;
 }
