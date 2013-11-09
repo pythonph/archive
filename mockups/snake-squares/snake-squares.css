@@ -12,6 +12,10 @@ div.main_centerize{
     margin: 0% 13%;
 }
 
+div.positioner{
+    position: absolute;
+}
+
 h1.logo{
     font-family: "Droid Serif", serif;
     color: #fff;
@@ -37,6 +41,7 @@ div.banner{
 
 div.header{
     width: 100%;
+    position: absolute;
 }
 
 div.side_banner_component{
@@ -55,6 +60,14 @@ div.page_body{
     background-color: #fff;
     border-width: 0px 10px 10px;
     border-color: #000;
-    min-height: 300px;
-    width: 900px;
+    min-height: 600px;
+    width: 976px;
+    /*position: absolute;*/
+    margin-top: 175px;
+}
+
+div.boilerplate{
+    background-color: #dadada;
+    width: 976px;
+    height: 200px;
 }
