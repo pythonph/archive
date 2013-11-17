@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Steve'
-SITENAME = u'Python PH'
+SITENAME = u'Python Philippines'
 SITEURL = 'http://localhost:8000'
 
 TIMEZONE = 'Asia/Manila'
@@ -28,7 +28,8 @@ TRANSLATION_FEED_ATOM = None
 
 DEFAULT_PAGINATION = 10
 
-THEME = 'themes/mabuhay'
+#THEME = 'themes/mabuhay'
+THEME = 'themes/snake-squares'
 
 MENUITEMS = (
   ('Home', '/'),
