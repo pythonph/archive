@@ -30,6 +30,7 @@ DEFAULT_PAGINATION = 10
 
 #THEME = 'themes/mabuhay'
 THEME = 'themes/snake-squares'
+THEME_STATIC_DIR = THEME + '/static'
 
 MENUITEMS = (
   ('Home', '/'),
