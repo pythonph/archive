@@ -1,0 +1,15 @@
+Flask>=0.10.1
+Flask-Login>=0.2.7
+Flask-SQLAlchemy>=1.0
+Flask-WTF>=0.9.3
+Jinja2>=2.7.1
+MarkupSafe>=0.18
+SQLAlchemy>=0.8.2
+WTForms>=1.0.5
+Werkzeug>=0.9.4
+itsdangerous>=0.23
+passlib>=1.6.1
+psycopg2>=2.5.1
+pycrypto>=2.6.1
+python-bcrypt>=0.3.2
+requests>=2.0.1

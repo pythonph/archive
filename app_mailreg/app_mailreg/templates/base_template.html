@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- version: 0.0.1-->
+
+<html>
+<head>
+    <title>Project Python.PH Web</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ie6handle.css') }}" type="text/css" media="all" />
+    <style type="text/css" media="all">@import url("{{ url_for('static', filename='css/test.css') }}");</style>
+
+<!--    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <!-- Check if jQuery loaded from Google. If not, then serve copy from static. -->
+    <script type="text/javascript">
+        <!--
+        if (typeof jQuery == 'undefined')
+            {
+                document.write(unescape("%3Cscript type='text/javascript' src='{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}'%3E%3C/script%3E"));
+            }
+        //-->
+    </script>
+-->
+
+</head>
+
+<body>
+
+<div id="left">
+    <!-- Left Column starts here -->
+    {% block left_column %}
+    {% endblock %}
+
+    {% if current_user.is_authenticated() %}
+        <p><a href="{{ url_for('form') }}">Form</a></p>
+        <p><a href="{{ url_for('admin') }}">Admin</a></p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a></p>
+        <p><a href="{{ url_for('register') }}">Register</a></p>
+    {% endif %}
+
+    <!-- Left Column ends -->
+</div>
+
+<div id="middle">
+    <!-- Middle Column starts here -->
+
+    <!-- Flash messages area -->
+    <div id="flash_message">
+        {% with message = get_flashed_messages() %}
+            {% if message %}
+                <ul>
+                    {% for msg in message %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main middle column block -->
+    {% block middle_column %}
+    {% endblock %}
+
+    <!-- Middle Column ends -->
+</div>
+
+<div id="right">
+    <!-- Right Column starts here -->
+    {% if current_user.is_authenticated() %}
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a></p>
+        <p><a href="{{ url_for('register') }}">Register</a></p>
+    {% endif %}
+
+    {% block right_column %}
+    {% endblock %}
+
+    {% if current_user.userdb %}
+        <p>{{ current_user.userdb.name }}</p>
+    {% endif %}
+
+    <!-- Right Column ends -->
+</div>
+
+</body>
+</html>

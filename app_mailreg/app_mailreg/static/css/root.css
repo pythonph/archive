@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 76%;/* font sizing in ems, baby. if you want to change anything, just change this.*/
+    color: #000;
+    background-color: #fff;
+    background-image: url(../img/url2.gif);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    }
+ul {
+    list-style: none;
+    }
+.ahem {
+    display: none;
+    }
+.level1 {
+    margin: 0;
+    padding: 1em;
+    }
+.level2 {
+    margin: 0 0 2em 0;
+    padding: 0 1em;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    }
+#content {
+    float: left;
+    margin: 0em;
+    padding: 4em 1em 1em 5em;/* padding for the big space instead of margin because of a really zarking bizarre ie5pc bug where it related the width of menu to this unrelated div. i'll, uh, write that up somewhere. it was weird to source. */
+    }
+    
+/*typography*/
+a {
+    text-decoration: none;
+    font-weight: normal;
+    color: #000;
+    }
+a:link {
+    }
+a:visited {
+    }
+a:active {
+    }
+a:hover {
+    text-decoration: underline;
+    }
+img {
+    border: 0;
+    }
+ol, ul, li {
+    font-size: 1.0em;
+    line-height: 1.8em;
+    margin-top: 0.2em;
+    margin-bottom: 0.1em; 
+    }
+p {
+    font-size: 1.0em;
+    line-height: 1.8em;
+    margin: 1.2em 0em 1.2em 0em;
+    }
+li > p {
+    margin-top: 0.2em;
+    }
+pre {
+    font-family: monospace;
+    font-size: 1.0em;
+    }
+strong, b {
+    font-weight: bold;
+    }
