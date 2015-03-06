@@ -1,0 +1,49 @@
+body {
+  font: 18px/1.5 Quattrocento Sans, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Raleway, sans-serif;
+}
+
+.site-header {
+  margin-bottom: 2em;
+  border-bottom: 1px solid #eee;
+}
+
+.site-header h1 {
+  margin: 0;
+  line-height: 80px;
+}
+
+.site-nav li {
+  padding-bottom: 0;
+}
+
+.site-nav li a {
+  display: inline-block;
+  padding-left: 1em;
+  border-left: 1px #eee solid;
+  line-height: 80px;
+}
+
+.site-footer {
+  padding-top: 2em;
+  color: #999;
+}
+
+.articles article {
+  margin-bottom: 1em;
+}
+
+article time {
+  display: block;
+}
+
+article header {
+  color: #999;
+}
+
+.pagination {
+  margin: 2em 0 0 0;
+}

@@ -1,0 +1,100 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background-image:url("../img/white_carbon.png");
+}
+
+div.main_centerize{
+    width: 80%;
+    margin: 0% 13%;
+}
+
+div.positioner{
+    position: absolute;
+}
+
+h1.logo{
+    font-family: "Droid Serif", serif;
+    color: #fff;
+    text-decoration: none;
+}
+
+a.logo{
+    text-decoration: none;
+}
+
+div.side_square{
+    width: 80px;
+    height: 80px;
+    margin-bottom: 3px;
+}
+
+div.side_yellow{
+    background-color: #dbe870;
+}
+
+div.python_blue{
+    background-color: #1c4e63;
+}
+
+div.banner{
+    background-color: #205081;
+}
+
+div.header{
+    width: 100%;
+    position: absolute;
+}
+
+div.side_banner_component{
+    float: left;
+}
+
+div.center_banner_component{
+    float:left;
+    width: 800px;
+    height: 153px;
+    margin: auto 3px;
+    padding: 5px;
+
+    background-image: url("../img/quarter_sun.png");
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+
+div.page_body{
+    background-color: #fff;
+    border-width: 0px 10px 10px;
+    border-color: #000;
+    min-height: 600px;
+    width: 956px;
+    margin-top: 175px;
+    padding: 20px 10px;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-weight: lighter;
+}
+
+p {
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-top: 10px;
+}
+
+div.boilerplate{
+    background-color: #dadada;
+    width: 967px;
+    height: 100px;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+    padding: 5px;
+}
