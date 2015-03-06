@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {% trans "Login" %}{% endblock %}
+
+{% if form.non_field_errors %}
+  {% block messages %}
+    <div class="messages">
+      {% for message in form.non_field_errors %}
+        <div class="alert alert-error">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endblock messages %}
+{% endif %}
+
+{% block content %}
+<div id="login">
+  <form class="form-horizontal" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "User Login" %}</legend>
+
+        {% for field in form %}
+          {% include "includes/_form_field.html" %}
+        {% endfor %}
+
+        <div class="control-group">
+          <div class="controls">
+            <a href="{% url password_reset %}">{% trans "Forgot password?" %}</a>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{% trans "Let me in!" %}</button>
+        </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock content %}

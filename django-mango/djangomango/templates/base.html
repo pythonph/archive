@@ -1,0 +1,88 @@
+{% load scss from mango %}
+{% load in_group from utils %}
+{% load static from staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block head_title %}{% trans "PyCon PH 2013" %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-2.2.2.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% scss 'css/generic.scss' %}">
+
+  {% block head %}
+  {% endblock head %}
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="row">
+        <h1 class="span6">
+          <a href="{% url home %}">{% trans "PyCon Philippines 2013" %}</a>
+        </h1>
+        <div id="primary-nav" class="span5 offset1">
+          {% if request.user.is_authenticated %}
+            <ul class="nav nav-pills">
+              <li><a href="{% url submit_proposal %}">{% trans "Submit Proposal" %}</a></li>
+              {% if request.user|in_group:"moderator" %}
+              <li><a href="{% url schedule_proposal %}">{% trans "Schedule" %}</a></li>
+              {% endif %}
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans "My Account" %} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url profile_details request.user.profile.slug %}">{% trans "Profile" %}</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{% url logout %}">{% trans "Logout" %}</a></li>
+                </ul>
+              </li>
+            </ul>
+          {% else %}
+            <span>
+              <a href="{% url login %}" class="btn btn-info">{% trans "Login" %}</a>
+              <a href="{% url signup %}" class="btn btn-success">{% trans "Signup" %}</a>
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% block messages %}
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endblock messages %}
+
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <script type="text/javascript" src="{% static 'js/jquery-1.8.3.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-ui-1.9.2.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/moment-range.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/underscore.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/backbone.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/handlebars.js' %}"></script>
+  <script type="text/javascript">
+  $(function() {
+    // check which page is active
+    $('#primary-nav > ul > li > a').each(function() {
+        var href = $(this).attr('href'),
+            currentUri = "{{ request.path }}";
+        if (currentUri == href) $(this).parent('li').addClass('active');
+    });
+  });
+  </script>
+
+  {% block javascript %}
+  {% endblock javascript %}
+
+</body>
+</html>

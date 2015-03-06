@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {{ profile.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div id="profile">
+
+  <div class="thumbnail">
+  {% if profile.mugshot %}
+    <img src="{{ profile.mugshot_thumbnail.url }}">
+  {% else %}
+    <img src="{{ profile.gravatar_url }}">
+  {% endif %}
+  </div>
+
+  <h2>{{ profile.user.get_full_name|title }}</h2>
+
+  {% if profile.bio %}
+    <p>{{ profile.bio }}</p>
+  {% endif %}
+
+  {% if request.user.is_authenticated and request.user.id == profile.user.id %}
+  <div class="actions">
+    <a href="{% url profile_edit profile.slug %}">{% trans "Edit Profile" %}</a>
+  </div>
+  {% endif %}
+
+  {% with profile.proposals as proposals %}
+    {% if proposals %}
+      <h3>{% trans "Presentations" %}</h3>
+      <ul>
+        {% for proposal in proposals %}
+        <li><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</div>
+{% endblock content %}

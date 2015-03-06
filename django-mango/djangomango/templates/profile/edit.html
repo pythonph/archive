@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {% trans "Edit Profile" %}{% endblock %}
+
+{% block content %}
+<div id="edit-profile">
+  <form class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Edit Profile" %}</legend>
+
+        <div class="row">
+          <div class="span6">
+            {% for field in form %}
+              {% if not field.name == 'mugshot' %}
+                {% include "includes/_form_field.html" %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <div class="span6">
+            {% with form.mugshot as field %}
+              <div class="control-group {% if field.errors %}error{% endif %}">
+                <div class="controls">
+                  {{ field }}
+                  {% if field.errors %}
+                    <span class="help-inline">{{ field.errors.0 }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            {% endwith %}
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+        </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock content %}

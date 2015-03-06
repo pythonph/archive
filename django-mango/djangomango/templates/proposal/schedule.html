@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load i18n templatetag_handlebars %}
+{% load coffee from mango %}
+
+{% block head_title %}{{ block.super }} | {% trans "Schedule Proposals" %}{% endblock %}
+
+{% block head %}
+  {% verbatim %}
+    <script id="schedule-template" type="text/x-handlebars-template">
+      <div id="schedule">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>{% trans "Hours" %}</th>
+              {{#each dates}}
+                <th>{{this}}</th>
+              {{/each}}
+            </tr>
+          </thead>
+          <tbody>
+          {{#each hours}}
+            <tr>
+              <td>{{this}}</td>
+              {{#each ../dates}}
+                <td>--</td>
+              {{/each}}
+            </tr>
+          {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </script>
+  {% endverbatim %}
+{% endblock head %}
+
+{% block content %}
+<div id="schedule-proposals">
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% coffee 'src/schedule.coffee' %}"></script>
+<script type="text/javascript">
+  $(function() {
+    Schedule.start();
+  })
+</script>
+{% endblock javascript %}

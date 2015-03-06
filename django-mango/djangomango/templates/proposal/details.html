@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{{ block.super }} | {{ proposal.title }}{% endblock %}
+
+{% block content %}
+<div id="proposal">
+  <h2>{{ proposal.title }}</h2>
+  <div class="speaker">
+    {{ proposal.speaker.get_full_name }} / 
+    {% with proposal.audience.name as audience_name %}
+      <span class="label {{ audience_name|lower }}">
+        {{ audience_name }}
+      </span>
+    {% endwith %}
+  </div>
+
+  <h3>{% trans "Description" %}</h3>
+  <p>{{ proposal.description }}</p>
+
+  <h3>{% trans "Abstract" %}</h3>
+  <p>{{ proposal.abstract }}</p>
+</div>
+{% endblock content %}
